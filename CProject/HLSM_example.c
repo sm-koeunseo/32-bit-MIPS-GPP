@@ -5,7 +5,7 @@ int main(void){
 
     // fetch
     uint32_t IC[] = {0x20080001, 0x20090003, 0x01098020, 0x20080002,
-                        0x02088818, 0x0230881a, 0x02118022};
+                    0x02088818, 0x0230881a, 0x02118022, 0x001188C0, 0x00119082};
     int i, length=sizeof(IC)/sizeof(IC[0]);
     //char opcode[6], rs[5], rt[5], rd[5], shamt[5], funct[6];
 
@@ -40,6 +40,19 @@ int main(void){
             fn = IC[i] & 0x3F;
 
             switch (fn){
+
+            case 0: //0x00 shifh left
+                // shamt 추출
+                sh = (IC[i] & 0x7C0) >> 6; // 0000 0000 0000 0000 0000 0111 1100 0000
+                regi[rd] = regi[rt] << sh;
+                printf("Shift Left $(%d), $(%d), %d : %d\n", rd, rt, sh, regi[rd]);
+                break;
+
+            case 2: //0x02 shift right
+                sh = (IC[i] & 0x7C0) >> 6; // 0000 0000 0000 0000 0000 0111 1100 0000
+                regi[rd] = regi[rt] >> sh;
+                printf("Shift Right $(%d), $(%d), %d : %d\n", rd, rt, sh, regi[rd]);
+                break;
 
             case 24: //0x18
                 regi[rd] = regi[rs] * regi[rt];
