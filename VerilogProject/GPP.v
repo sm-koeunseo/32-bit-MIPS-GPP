@@ -1,17 +1,26 @@
 `timescale 1ns/1ns
 
-module GPP (Clk, Rst);
+module GPP (Addr, Data, RW, En, Done, Clk, Rst);
 
-    input Clk, Rst;
-    reg [31:0] regi [0:25];
+    output reg  [3:0] Addr;
+    input       [31:0] Data;
+    output reg  RW, En, Done;
 
-    parameter S_wait = 0, S_fetch = 1;
-    parameter S_decode = 2, S_execute = 3;
-    parameter S_store = 4;
+    input       Clk, Rst;
+    reg [31:0]  regi [0:25];
+
+    parameter   S_wait      = 0,
+                S_initial   = 1,
+                S_fetch     = 2,
+                S_decode    = 3,
+                S_execute1  = 4,    // load data
+                S_execute2  = 5,    // execute data
+                S_store     = 6,
+                S_end       = 7;
+                
     reg [2:0] State, StateNext;
-
-    //tmp
     reg [31:0] IC;
+    integer I;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -29,23 +38,42 @@ module GPP (Clk, Rst);
     // StateReg
     always @(posedge Clk) begin
         if (Rst == 1)
-            State <= S_wait;
+            State <= S_initial;
         else
             State <= StateNext;
     end
 
     // ComLogic
-    always @(State) begin
+    always @(State) begin        
+        Addr <= 4'b0000;
+        RW <= 1'b0;
+        En <= 1'b0;
+
         case(State)
             S_wait: begin
+                StateNext <= S_wait;
+            end
+            S_initial: begin
                 regi[0] <= 0;
+                Done <= 1'b0;
+                I <= 0;
                 StateNext <= S_fetch;
             end
             S_fetch: begin
-                IC = 32'h20080001;
-                StateNext <= S_decode;
+                if (!(I==1)) begin
+                    Addr <= I;
+                    RW <= 1'b0;
+                    En <= 1'b1;
+                    StateNext <= S_decode;
+                end else
+                    StateNext <= S_end;
             end
             S_decode: begin // get value from regi
+                $display("Data : %h", Data);
+                IC <= Data;
+                StateNext <= S_execute1;
+            end
+            S_execute1: begin
                 case(op)
                     0: begin
                         // rtv <= regi[rt];
@@ -53,19 +81,19 @@ module GPP (Clk, Rst);
                     8: begin
                         rsv <= regi[rs];
                         #5;
-                        $display("S_decode  || rs : %d, rsv : %d", rs, regi[rs]);
+                        $display("S_execute1  || rs : %d, rsv : %d", rs, regi[rs]);
                     end
                 endcase
-                StateNext <= S_execute;
+                StateNext <= S_execute2;
             end
-            S_execute: begin
+            S_execute2: begin
                 case(op)
                     0: begin
                     end
                     8: begin
                         {Co, rdv} <= rsv + {rd,sh,fn};
                         #5;
-                        $display("S_execute || im : %d, Co : %d, rdv : %d", {rd,sh,fn}, Co, rdv);
+                        $display("S_execute2 || im : %d, Co : %d, rdv : %d", {rd,sh,fn}, Co, rdv);
                     end
                 endcase
                 StateNext <= S_store;
@@ -74,6 +102,11 @@ module GPP (Clk, Rst);
                 regi[rd] <= rdv;
                 #5;
                 $display("S_store   || rd : %d, regi[rd] : %d", rd, regi[rd]);
+                I <= I + 1;
+                StateNext <= S_fetch;
+            end
+            S_end : begin
+                Done <= 1;
                 StateNext <= S_wait;
             end
         endcase

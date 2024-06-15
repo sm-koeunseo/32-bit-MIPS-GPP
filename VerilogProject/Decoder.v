@@ -10,13 +10,8 @@ module Decoder(IC, op, rs, rt, rd, sh, fn);
     output reg [4:0] sh;
     output reg [5:0] fn;
 
-    always @(IC) begin
-        op = IC[31:26];
-        rs = IC[25:21];
-        rt = IC[20:16];
-        rd = IC[15:11];
-        sh = IC[10:6];
-        fn = IC[5:0];
+    always @(*) begin
+        {op, rs, rt, rd, sh, fn} = IC;
     end
 
 endmodule
