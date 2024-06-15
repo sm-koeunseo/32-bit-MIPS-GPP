@@ -20,7 +20,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 
     reg [2:0] State, StateNext;
     reg [31:0] IC;
-    integer I;
+    integer I, J;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -60,7 +60,13 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 StateNext <= S_fetch;
             end
             S_fetch: begin
-                if (!(I==1)) begin
+                
+                for (J=0; J<26; J=J+1) begin
+                    $write("%d, ",regi[J]);
+                end
+                $display("");
+
+                if (!(I==3)) begin
                     Addr <= I;
                     RW <= 1'b0;
                     En <= 1'b1;
@@ -76,32 +82,25 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             S_execute1: begin
                 case(op)
                     0: begin
-                        // rtv <= regi[rt];
-                    end
-                    8: begin
                         rsv <= regi[rs];
-                        #5;
-                        $display("S_execute1  || rs : %d, rsv : %d", rs, regi[rs]);
+                        rtv <= regi[rt];
                     end
+                    8: rsv <= regi[rs];
                 endcase
                 StateNext <= S_execute2;
             end
             S_execute2: begin
                 case(op)
-                    0: begin
-                    end
-                    8: begin
-                        {Co, rdv} <= rsv + {rd,sh,fn};
-                        #5;
-                        $display("S_execute2 || im : %d, Co : %d, rdv : %d", {rd,sh,fn}, Co, rdv);
-                    end
+                    0: {Co, rdv} <= rsv + rtv;
+                    8: {Co, rtv} <= rsv + {rd,sh,fn};
                 endcase
                 StateNext <= S_store;
             end
             S_store: begin
-                regi[rd] <= rdv;
-                #5;
-                $display("S_store   || rd : %d, regi[rd] : %d", rd, regi[rd]);
+                case(op)
+                    0: regi[rd] <= rdv;
+                    8: regi[rt] <= rtv;
+                endcase
                 I <= I + 1;
                 StateNext <= S_fetch;
             end
