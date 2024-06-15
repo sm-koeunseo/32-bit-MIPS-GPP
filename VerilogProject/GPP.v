@@ -13,10 +13,8 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 S_initial   = 1,
                 S_fetch     = 2,
                 S_decode    = 3,
-                S_execute1  = 4,    // load data
-                S_execute2  = 5,    // execute data
-                S_store     = 6,
-                S_end       = 7;
+                S_execute   = 4,    // load data
+                S_end       = 5;
                 
     reg [2:0] State, StateNext;
     reg [31:0] IC;
@@ -77,29 +75,12 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             S_decode: begin // get value from regi
                 $display("Data : %h", Data);
                 IC <= Data;
-                StateNext <= S_execute1;
+                StateNext <= S_execute;
             end
-            S_execute1: begin
+            S_execute: begin
                 case(op)
-                    0: begin
-                        rsv <= regi[rs];
-                        rtv <= regi[rt];
-                    end
-                    8: rsv <= regi[rs];
-                endcase
-                StateNext <= S_execute2;
-            end
-            S_execute2: begin
-                case(op)
-                    0: {Co, rdv} <= rsv + rtv;
-                    8: {Co, rtv} <= rsv + {rd,sh,fn};
-                endcase
-                StateNext <= S_store;
-            end
-            S_store: begin
-                case(op)
-                    0: regi[rd] <= rdv;
-                    8: regi[rt] <= rtv;
+                    0: {Co, regi[rd]} <= regi[rs] + regi[rt];
+                    8: {Co, regi[rt]} <= regi[rs] + {rd,sh,fn};
                 endcase
                 I <= I + 1;
                 StateNext <= S_fetch;
