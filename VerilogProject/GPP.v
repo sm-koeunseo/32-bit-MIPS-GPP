@@ -13,12 +13,13 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 S_initial   = 1,
                 S_fetch     = 2,
                 S_decode    = 3,
-                S_execute   = 4,    // load data
+                S_execute   = 4,
                 S_end       = 5;
                 
     reg [2:0] State, StateNext;
     reg [31:0] IC;
     integer I, J;
+    reg Co;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -27,9 +28,6 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     wire [4:0] rd;
     wire [4:0] sh;
     wire [5:0] fn;
-
-    reg [31:0] rsv, rtv, rdv;
-    reg Co;
 
     Decoder decoder (IC, op, rs, rt, rd, sh, fn);
 
@@ -64,7 +62,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 end
                 $display("");
 
-                if (!(I==3)) begin
+                if (!(I==9)) begin
                     Addr <= I;
                     RW <= 1'b0;
                     En <= 1'b1;
@@ -79,7 +77,16 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             end
             S_execute: begin
                 case(op)
-                    0: {Co, regi[rd]} <= regi[rs] + regi[rt];
+                    0: begin
+                case(fn)
+                    0: regi[rd] <= regi[rt] << sh;
+                    2: regi[rd] <= regi[rt] >> sh;
+                    24: regi[rd] <= regi[rs] * regi[rt];
+                    26: regi[rd] <= regi[rs] / regi[rt];
+                    32: {Co, regi[rd]} <= regi[rs] + regi[rt];
+                    34: {Co, regi[rd]} <= regi[rs] - regi[rt];
+                endcase
+                    end
                     8: {Co, regi[rt]} <= regi[rs] + {rd,sh,fn};
                 endcase
                 I <= I + 1;
