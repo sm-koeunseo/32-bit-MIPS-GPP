@@ -17,8 +17,8 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 S_end       = 5;
                 
     reg [2:0] State, StateNext;
-    reg [(`D_WIDTH-1):0] IC;
-    integer I, J;
+    reg [(`D_WIDTH-1):0] IR;
+    integer PC, J;
     reg Co;
 
     // im = rd+sh+fn
@@ -29,7 +29,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     wire [4:0] sh;
     wire [5:0] fn;
 
-    Decoder decoder (IC, op, rs, rt, rd, sh, fn);
+    Decoder decoder (IR, op, rs, rt, rd, sh, fn);
 
     // StateReg
     always @(posedge Clk) begin
@@ -52,7 +52,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             S_initial: begin
                 regi[0] <= 0;
                 Done <= 1'b0;
-                I <= 0;
+                PC <= 0;
                 StateNext <= S_fetch;
             end
             S_fetch: begin
@@ -62,17 +62,18 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 end
                 $display("");
 
-                if (!(I==9)) begin
-                    Addr <= I;
+                if (!(PC==9)) begin
+                    Addr <= PC;
                     RW <= 1'b0;
                     En <= 1'b1;
+                    PC <= PC+1;
                     StateNext <= S_decode;
                 end else
                     StateNext <= S_end;
             end
             S_decode: begin // get value from regi
                 $display("Data : %h", Data);
-                IC <= Data;
+                IR <= Data;
                 StateNext <= S_execute;
             end
             S_execute: begin
@@ -87,9 +88,8 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                     34: {Co, regi[rd]} <= regi[rs] - regi[rt];
                 endcase
                     end
-                    8: {Co, regi[rt]} <= regi[rs] + {rd,sh,fn};
+                    8: regi[rt] <= regi[rs] + {rd,sh,fn};
                 endcase
-                I <= I + 1;
                 StateNext <= S_fetch;
             end
             S_end : begin
