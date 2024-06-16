@@ -1,13 +1,13 @@
-`timescale 1ns/1ns
+`include "define.h"
 
 module GPP (Addr, Data, RW, En, Done, Clk, Rst);
 
-    output reg  [3:0] Addr;
-    input       [31:0] Data;
+    output reg  [(`SA_WIDTH-1):0]   Addr;
+    input       [(`D_WIDTH-1):0]    Data;
     output reg  RW, En, Done;
 
     input       Clk, Rst;
-    reg [31:0]  regi [0:25];
+    reg [(`D_WIDTH-1):0]  regi [0:25];
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
@@ -17,7 +17,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 S_end       = 5;
                 
     reg [2:0] State, StateNext;
-    reg [31:0] IC;
+    reg [(`D_WIDTH-1):0] IC;
     integer I, J;
     reg Co;
 

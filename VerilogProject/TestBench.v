@@ -1,10 +1,10 @@
-`timescale 1ns/1ns
+`include "define.h"
 
 module TestBench();
 
     reg Clk, Rst, Rst_m;
-    wire [31:0] Di, Data;
-    wire [3:0] Addr;
+    wire [(`D_WIDTH-1):0] Di, Data;
+    wire [(`SA_WIDTH-1):0] Addr;
     wire RW, En, Done;
 
     parameter ClkPeriod = 20;
