@@ -7,7 +7,11 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     output reg  RW, En, Done;
 
     input       Clk, Rst;
-    reg [(`D_WIDTH-1):0]  regi [0:25];
+    //reg [(`D_WIDTH-1):0]  regi [0:25];
+    
+    output reg [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
+    input [(`D_WIDTH-1):0] R1_Data, R2_Data, W_Data;
+    reg R1_en, R2_en, W_en, dis;
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
@@ -44,23 +48,26 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
         Addr <= 4'b0000;
         RW <= 1'b0;
         En <= 1'b0;
+        
+        R1_Addr <= 5'b00000;
+        R2_Addr <= 5'b00000;
+        W_Addr <= 5'b00000;
+        R1_en <= 1'b0;
+        R2_en <= 1'b0;
+        W_en <= 1'b0;
 
         case(State)
             S_wait: begin
                 StateNext <= S_wait;
             end
             S_initial: begin
-                regi[0] <= 0;
+                //regi[0] <= 0;
                 Done <= 1'b0;
                 PC <= 0;
+                dis <= 0;
                 StateNext <= S_fetch;
             end
             S_fetch: begin
-                
-                for (J=0; J<26; J=J+1) begin
-                    $write("%d, ",regi[J]);
-                end
-                $display("");
 
                 if (!(PC==9)) begin
                     Addr <= PC;
@@ -78,22 +85,35 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             end
             S_execute: begin
                 case(op)
-                    0: begin
+                /*    0: begin
                 case(fn)
-                    0: regi[rd] <= regi[rt] << sh;
+                    0: begin
+                        regi[rd] <= regi[rt] << sh;
+                    end
                     2: regi[rd] <= regi[rt] >> sh;
                     24: regi[rd] <= regi[rs] * regi[rt];
                     26: regi[rd] <= regi[rs] / regi[rt];
                     32: {Co, regi[rd]} <= regi[rs] + regi[rt];
                     34: {Co, regi[rd]} <= regi[rs] - regi[rt];
                 endcase
+                    end*/
+                    8: begin
+                        //R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rt;
+                        W_Data <= R1_Data + {rd,sh,fn};
+                        W_en <= 1'b1;
+                        //regi[rt] <= regi[rs] + {rd,sh,fn};
                     end
-                    8: regi[rt] <= regi[rs] + {rd,sh,fn};
                 endcase
                 StateNext <= S_fetch;
             end
             S_end : begin
                 Done <= 1;
+                dis <= 1;
                 StateNext <= S_wait;
             end
         endcase
