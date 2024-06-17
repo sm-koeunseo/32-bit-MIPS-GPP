@@ -13,7 +13,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     reg [(`D_WIDTH-1):0] W_Data;
     reg R1_en, R2_en, W_en, dis;
     
-    RegFile regFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
+    RegFile register(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
@@ -37,6 +37,13 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
 
     Decoder decoder (IR, op, rs, rt, rd, sh, fn);
 
+    reg [2:0] op_code;
+    reg [(`D_WIDTH-1):0] operand1, operand2;
+    wire [(`D_WIDTH-1):0] result;
+    reg enable;
+
+    ALU alu (op_code, operand1, operand2, result, enable);
+
     // StateReg
     always @(posedge Clk) begin
         if (Rst == 1)
@@ -47,16 +54,21 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
 
     // ComLogic
     always @(State) begin        
-        Addr <= 4'b0000;
+        Addr <= {`SA_WIDTH{1'b0}};
         RW <= 1'b0;
         En <= 1'b0;
         
-        R1_Addr <= 5'b00000;
-        R2_Addr <= 5'b00000;
-        W_Addr <= 5'b00000;
+        R1_Addr <= {`RA_WIDTH{1'b0}};
+        R2_Addr <= {`RA_WIDTH{1'b0}};
+        W_Addr <= {`RA_WIDTH{1'b0}};
         R1_en <= 1'b0;
         R2_en <= 1'b0;
         W_en <= 1'b0;
+
+        op_code <= 3'b000;
+        operand1 <= {`D_WIDTH{1'b0}};
+        operand2 <= {`D_WIDTH{1'b0}};
+        enable <= 1'b0;
 
         case(State)
             S_wait: begin
@@ -93,8 +105,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R1_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b100;
+                        operand1 <= R1_Data;
+                        operand2 <= sh;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data << sh;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                     2: begin // regi[rd] <= regi[rt] >> sh;
@@ -102,8 +120,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R1_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b101;
+                        operand1 <= R1_Data;
+                        operand2 <= sh;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data >> sh;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                     24: begin // regi[rd] <= regi[rs] * regi[rt];
@@ -113,8 +137,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R2_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b010;
+                        operand1 <= R1_Data;
+                        operand2 <= R2_Data;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data * R2_Data;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                     26: begin // regi[rd] <= regi[rs] / regi[rt];
@@ -124,8 +154,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R2_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b011;
+                        operand1 <= R1_Data;
+                        operand2 <= R2_Data;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data / R2_Data;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                     32: begin // {Co, regi[rd]} <= regi[rs] + regi[rt];
@@ -135,8 +171,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R2_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b000;
+                        operand1 <= R1_Data;
+                        operand2 <= R2_Data;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data + R2_Data;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                     34: begin // {Co, regi[rd]} <= regi[rs] - regi[rt];
@@ -146,8 +188,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R2_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b001;
+                        operand1 <= R1_Data;
+                        operand2 <= R2_Data;
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rd;
-                        W_Data <= R1_Data - R2_Data;
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                 endcase
@@ -158,8 +206,14 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         R1_en <= 1'b1;
                         #5;
 
+                        op_code <= 3'b000;
+                        operand1 <= R1_Data;
+                        operand2 <= {rd,sh,fn};
+                        enable <= 1'b1;
+                        #5;
+
                         W_Addr <= rt;
-                        W_Data <= R1_Data + {rd,sh,fn};
+                        W_Data <= result;
                         W_en <= 1'b1;
                     end
                 endcase
