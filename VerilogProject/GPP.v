@@ -1,17 +1,20 @@
 `include "define.h"
 
 module GPP (Addr, Data, RW, En, Done, Clk, Rst);
+//, R1_Addr, R2_Addr, W_Addr, R1_Data, R2_Data, W_Data
 
     output reg  [(`SA_WIDTH-1):0]   Addr;
     input       [(`D_WIDTH-1):0]    Data;
     output reg  RW, En, Done;
 
     input       Clk, Rst;
-    //reg [(`D_WIDTH-1):0]  regi [0:25];
     
-    output reg [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
-    input [(`D_WIDTH-1):0] R1_Data, R2_Data, W_Data;
+    reg [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
+    wire [(`D_WIDTH-1):0] R1_Data, R2_Data;
+    reg [(`D_WIDTH-1):0] W_Data;
     reg R1_en, R2_en, W_en, dis;
+    
+    RegFile regFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
@@ -61,7 +64,6 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 StateNext <= S_wait;
             end
             S_initial: begin
-                //regi[0] <= 0;
                 Done <= 1'b0;
                 PC <= 0;
                 dis <= 0;
@@ -98,7 +100,6 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 endcase
                     end*/
                     8: begin
-                        //R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data
                         R1_Addr <= rs;
                         R1_en <= 1'b1;
                         #5;
@@ -106,7 +107,6 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                         W_Addr <= rt;
                         W_Data <= R1_Data + {rd,sh,fn};
                         W_en <= 1'b1;
-                        //regi[rt] <= regi[rs] + {rd,sh,fn};
                     end
                 endcase
                 StateNext <= S_fetch;

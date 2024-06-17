@@ -8,15 +8,14 @@ module TestBench();
     wire [(`SA_WIDTH-1):0] Addr;
     wire RW, En, Done;
 
-    wire [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
-    wire [(`D_WIDTH-1):0] R1_Data, R2_Data, W_Data;
-    wire R1_en, R2_en, W_en, dis;
+    // wire [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
+    // wire [(`D_WIDTH-1):0] R1_Data, R2_Data, W_Data;
+    // wire R1_en, R2_en, W_en, dis;
 
     parameter ClkPeriod = 20;
 
     GPP gpp(Addr, Data, RW, En, Done, Clk, Rst);
     Sram I_Cache(Di, Data, Addr, RW, En, Clk, Rst_m);
-    RegFile regFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
 
     // Clock Procedure
     always begin
