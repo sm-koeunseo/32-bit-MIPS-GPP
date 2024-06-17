@@ -7,7 +7,13 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     output reg  RW, En, Done;
 
     input       Clk, Rst;
-    reg [(`D_WIDTH-1):0]  regi [0:25];
+    
+    reg [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
+    wire [(`D_WIDTH-1):0] R1_Data, R2_Data;
+    reg [(`D_WIDTH-1):0] W_Data;
+    reg R1_en, R2_en, W_en, dis;
+    
+    RegFile regFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
@@ -18,8 +24,8 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 
     reg [2:0] State, StateNext;
     reg [(`D_WIDTH-1):0] IR;
-    integer PC, J;
-    reg Co;
+    integer PC;
+    // reg Co;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -44,23 +50,25 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
         Addr <= 4'b0000;
         RW <= 1'b0;
         En <= 1'b0;
+        
+        R1_Addr <= 5'b00000;
+        R2_Addr <= 5'b00000;
+        W_Addr <= 5'b00000;
+        R1_en <= 1'b0;
+        R2_en <= 1'b0;
+        W_en <= 1'b0;
 
         case(State)
             S_wait: begin
                 StateNext <= S_wait;
             end
             S_initial: begin
-                regi[0] <= 0;
                 Done <= 1'b0;
                 PC <= 0;
+                dis <= 0;
                 StateNext <= S_fetch;
             end
             S_fetch: begin
-                
-                for (J=0; J<26; J=J+1) begin
-                    $write("%d, ",regi[J]);
-                end
-                $display("");
 
                 if (!(PC==9)) begin
                     Addr <= PC;
@@ -80,20 +88,86 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 case(op)
                     0: begin
                 case(fn)
-                    0: regi[rd] <= regi[rt] << sh;
-                    2: regi[rd] <= regi[rt] >> sh;
-                    24: regi[rd] <= regi[rs] * regi[rt];
-                    26: regi[rd] <= regi[rs] / regi[rt];
-                    32: {Co, regi[rd]} <= regi[rs] + regi[rt];
-                    34: {Co, regi[rd]} <= regi[rs] - regi[rt];
+                    0: begin  // regi[rd] <= regi[rt] << sh;
+                        R1_Addr <= rt;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data << sh;
+                        W_en <= 1'b1;
+                    end
+                    2: begin // regi[rd] <= regi[rt] >> sh;
+                        R1_Addr <= rt;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data >> sh;
+                        W_en <= 1'b1;
+                    end
+                    24: begin // regi[rd] <= regi[rs] * regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data * R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    26: begin // regi[rd] <= regi[rs] / regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data / R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    32: begin // {Co, regi[rd]} <= regi[rs] + regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data + R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    34: begin // {Co, regi[rd]} <= regi[rs] - regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data - R2_Data;
+                        W_en <= 1'b1;
+                    end
                 endcase
                     end
-                    8: regi[rt] <= regi[rs] + {rd,sh,fn};
+                    8: begin
+                        // regi[rt] <= regi[rs] + {rd,sh,fn};
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rt;
+                        W_Data <= R1_Data + {rd,sh,fn};
+                        W_en <= 1'b1;
+                    end
                 endcase
                 StateNext <= S_fetch;
             end
             S_end : begin
                 Done <= 1;
+                dis <= 1;
                 StateNext <= S_wait;
             end
         endcase
