@@ -1,7 +1,6 @@
 `include "define.h"
 
 module GPP (Addr, Data, RW, En, Done, Clk, Rst);
-//, R1_Addr, R2_Addr, W_Addr, R1_Data, R2_Data, W_Data
 
     output reg  [(`SA_WIDTH-1):0]   Addr;
     input       [(`D_WIDTH-1):0]    Data;
@@ -25,8 +24,8 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                 
     reg [2:0] State, StateNext;
     reg [(`D_WIDTH-1):0] IR;
-    integer PC, J;
-    reg Co;
+    integer PC;
+    // reg Co;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -87,19 +86,74 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             end
             S_execute: begin
                 case(op)
-                /*    0: begin
-                case(fn)
                     0: begin
-                        regi[rd] <= regi[rt] << sh;
+                case(fn)
+                    0: begin  // regi[rd] <= regi[rt] << sh;
+                        R1_Addr <= rt;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data << sh;
+                        W_en <= 1'b1;
                     end
-                    2: regi[rd] <= regi[rt] >> sh;
-                    24: regi[rd] <= regi[rs] * regi[rt];
-                    26: regi[rd] <= regi[rs] / regi[rt];
-                    32: {Co, regi[rd]} <= regi[rs] + regi[rt];
-                    34: {Co, regi[rd]} <= regi[rs] - regi[rt];
+                    2: begin // regi[rd] <= regi[rt] >> sh;
+                        R1_Addr <= rt;
+                        R1_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data >> sh;
+                        W_en <= 1'b1;
+                    end
+                    24: begin // regi[rd] <= regi[rs] * regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data * R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    26: begin // regi[rd] <= regi[rs] / regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data / R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    32: begin // {Co, regi[rd]} <= regi[rs] + regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data + R2_Data;
+                        W_en <= 1'b1;
+                    end
+                    34: begin // {Co, regi[rd]} <= regi[rs] - regi[rt];
+                        R1_Addr <= rs;
+                        R1_en <= 1'b1;
+                        R2_Addr <= rt;
+                        R2_en <= 1'b1;
+                        #5;
+
+                        W_Addr <= rd;
+                        W_Data <= R1_Data - R2_Data;
+                        W_en <= 1'b1;
+                    end
                 endcase
-                    end*/
+                    end
                     8: begin
+                        // regi[rt] <= regi[rs] + {rd,sh,fn};
                         R1_Addr <= rs;
                         R1_en <= 1'b1;
                         #5;
