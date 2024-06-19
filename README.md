@@ -1,5 +1,11 @@
-# C code Test
-## decode
+# 32-bit MIPS GPP
+
+## Sram (I-Cache)
+### 32x16 coregen design (Dual Port Block Memory)
+- Component Name : SRAM_coregen
+- contain Enable Pin, SINIT pin
+
+### decode
 |PC|Instruction|Binary|Hexadecimal|
 |--|----------------|-----------------------------------|----------|
 |01|addi t0 zero 0x1|001000 00000 01000 0000000000000001|0x20080001|
@@ -11,7 +17,12 @@
 |07|sub s0 s0 s1|000000 10000 10001 10000 00000 100010|0x02118022|
 |08|sll s1 s1 0x3|000000 00000 10001 10001 00011 000000|0x001188C0|
 |09|srl s2 s1 0x2|000000 00000 10001 10010 00010 000010|0x00119082|
-## execute
+
+## Register
+### 32x32 Register File (behavior)
+- 2 read ports, 1 write port
+
+### execute
  when PC is 04
 |address|value|address|value|
 |---------|-----|---------|-----|
