@@ -1,9 +1,8 @@
 `include "define.h"
 
-module GPP_TOP(Clk, Done, Rst,
-            M_di, MI_Addr, MO_do, M_enb, M_web, Rst_M);
+module GPP_TOP(Clk, Done, Rst, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
 
-    // Common Interface
+// Common Interface
     input   Clk;
 
     // GPP_Core Interface
@@ -11,33 +10,33 @@ module GPP_TOP(Clk, Done, Rst,
     input   Rst;
 
     // Dual-port SRAM Interface
-    input    [(`D_WIDTH-1):0] M_di;
-    input    [(`SA_WIDTH-1):0] MI_Addr;
-    output  [(`D_WIDTH-1):0] MO_do;
-    input    M_enb, M_web;
-    input    Rst_M;
-   
-    //Interface between GPP_Core and Dual_port SRAM
-    wire [(`D_WIDTH-1):0] MW_do;
-    wire [(`SA_WIDTH-1):0] MW_Addr;
-    wire M_ena, M_wea;
+    input [(`SA_WIDTH-1):0] Addr2;
+    input [(`D_WIDTH-1):0] Data_I;
+    output [(`D_WIDTH-1):0] Data2_O;
+    input en2, we2;
+    input Rst_M;
 
-    GPP GPP_Core(MW_Addr, MO_do, M_wea, M_ena, Done, Clk, Rst);
+    //Interface between GPP_Core and Dual_port SRAM
+    wire [(`SA_WIDTH-1):0] Addr1;
+    wire [(`D_WIDTH-1):0] Data1_O;
+    wire en1, we1;
+
+    GPP GPP_Core(Addr1, Data1_O, we1, en1, Done, Clk, Rst);
     
     sram_coregen sram(
-        MW_Addr,   //addra,
-        MI_Addr,   //addrb,
+        Addr1,   //addra,
+        Addr2,   //addrb,
         Clk,        //clka,
         Clk,        //clkb,
-        M_di,     //dina,
-        M_di,    //dinb,
-        MW_do,     //douta,
-        MO_do,    //doutb,
-        M_ena,      //ena,
-        M_enb,     //enb,
+        Data_I,     //dina,
+        Data_I,    //dinb,
+        Data1_O,     //douta,
+        Data2_O,    //doutb,
+        en1,      //ena,
+        en2,     //enb,
         Rst_M,      //sinita,
         Rst_M,      //sinitb,
-        M_wea,      //wea,
-        M_web);    //web);
+        we1,      //wea,
+        we2);    //web);
 
 endmodule

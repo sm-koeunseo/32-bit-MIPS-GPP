@@ -82,7 +82,7 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
             end
             S_fetch: begin
 
-                if (!(PC==9)) begin
+                if (!(PC==`SL_WIDTH)) begin
                     Addr <= PC;
                     RW <= 1'b0;
                     En <= 1'b1;
