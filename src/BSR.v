@@ -12,18 +12,17 @@ reg [`D_WIDTH-1:0] D_TMP;
 // BSR1 bsr1 (BS_AMT[0], D_TMP, D_OUT);
 
 always @(en) begin
+    D_TMP <= D_IN;
+    #1;
     if (en) begin
-        D_TMP <= D_IN;
-
         if (BS_AMT[2])
             D_TMP <= {{2{D_TMP[`D_WIDTH-1]}}, D_TMP[`D_WIDTH-1:2]};
 
         if (BS_AMT[1])
             D_TMP <= {{D_TMP[`D_WIDTH-1]}, D_TMP[`D_WIDTH-1:1]};
-
-        D_OUT <= D_TMP;
-        $display("%b", D_TMP);
     end
+    #1;
+    D_OUT <= D_TMP;
 end
 
 endmodule
