@@ -34,13 +34,15 @@ module TestBench();
         En <= 1'b0; RW <= 1'b0;
         @(posedge Clk);
      
-        Rst_M <= 0;
+        Rst_M <= 1'b0;
         @(posedge Clk);
 
         for (Index=0; Index<`SL_WIDTH; Index=Index+1) begin
-            $display("%h", regi[Index]);
+            // $display("%h", regi[Index]);
+            $display("Writing to SRAM: Addr=%d, Data=%h", Index, regi[Index]);
             Addr <= Index;
             Data_I <= regi[Index];
+            #5;
             RW <= 1'b1;
             En <= 1'b1;
             @(posedge Clk);

@@ -11,7 +11,7 @@ module Decoder(IC, op, rs, rt, rd, sh, fn);
     output reg [5:0] fn;
 
     always @(*) begin
-        {op, rs, rt, rd, sh, fn} = IC;
+        {op, rs, rt, rd, sh, fn} <= IC;
     end
 
 endmodule
