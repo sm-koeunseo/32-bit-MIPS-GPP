@@ -1,32 +1,35 @@
 #include <stdio.h>
 #include <stdint.h>
+#include <stdlib.h>
+#include "tv.h"
 
 int main(void){
 
-    // fetch
-    uint32_t IC[] = {0x20080001, 0x20090003, 0x01098020, 0x20080002,
-                    0x02088818, 0x0230881a, 0x02118022, 0x001188C0, 0x00119082};
-    int i, length=sizeof(IC)/sizeof(IC[0]);
-    //char opcode[6], rs[5], rt[5], rd[5], shamt[5], funct[6];
+    // 결과 레지스터 파일
+    FILE *fp;
 
-    uint32_t regi[26];
-    regi[0] = 0;
+    int i, length=sizeof(IC)/sizeof(IC[0]);
+
+    uint32_t regi[31] = {0,};
 
     uint32_t op, rs, rt, rd, sh, fn, im;
 
+    fp = fopen("sw/sw_result.txt", "w");
+
+	if(fp==NULL){
+		printf("error occurs when opening sw_result.txt!\n", i);
+		exit(1);
+	}
 
     for (i=0; i<length; i++){
         // opcode 추출, 1111 1100 0000 0000 0000 0000 0000 0000
         op = (IC[i] & 0xFC000000) >> 26;
-        //printf("%06X, %d\n", opcode, opcode);
 
         // rs 추출, 0000 0011 1110 0000 0000 0000 0000 0000
         rs = (IC[i] & 0x3E00000) >> 21;
 
         // rt 추출, 0000 0000 0001 1111 0000 0000 0000 0000
         rt = (IC[i] & 0x1F0000) >> 16;
-
-        //printf("%d, %d, %d\n", op, rs, rt);
 
         // immediate 추출, 0000 0000 0000 0000 1111 1111 1111 1111
         im = IC[i] & 0xFFFF;
@@ -84,5 +87,8 @@ int main(void){
         }
     }
 
+    for (i = 0; i < 32; i++)
+        fprintf(fp, "%d: %x\n", i, regi[i]);
+    
     return 0;
 }
