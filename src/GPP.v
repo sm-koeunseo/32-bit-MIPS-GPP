@@ -18,9 +18,10 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
     parameter   S_wait      = 0,
                 S_initial   = 1,
                 S_fetch     = 2,
-                S_decode    = 3,
-                S_execute   = 4,
-                S_end       = 5;
+                S_fetch2    = 3,
+                S_decode    = 4,
+                S_execute   = 5,
+                S_end       = 6;
                 
     reg [2:0] State, StateNext;
     reg [(`D_WIDTH-1):0] IR;
@@ -87,9 +88,12 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
                     RW <= 1'b0;
                     En <= 1'b1;
                     PC <= PC+1;
-                    StateNext <= S_decode;
+                    StateNext <= S_fetch2;
                 end else
                     StateNext <= S_end;
+            end
+            S_fetch2: begin
+                StateNext <= S_decode;
             end
             S_decode: begin // get value from regi
                 $display("Data : %h", Data);
