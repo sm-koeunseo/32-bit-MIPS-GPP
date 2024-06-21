@@ -29,7 +29,7 @@ module RegFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W
     end
 
     // CombLogic - Write Operation
-    always @* begin
+    always @(W_en) begin
         for(Index=0; Index<(2**`RA_WIDTH);Index=Index+1)
                 RegFile_Next[Index] <= RegFile[Index];
         
@@ -38,7 +38,7 @@ module RegFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W
     end
 
     // CombLogic - Read1 Operation
-    always @* begin
+    always @(R1_en) begin
         if (R1_en == 1'b1)
             R1_Data <= RegFile[R1_Addr];
         else
@@ -46,7 +46,7 @@ module RegFile(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W
     end
 
     // CombLogic - Read2 Operation
-    always @* begin
+    always @(R2_en) begin
         if (R2_en == 1'b1)
             R2_Data <= RegFile[R2_Addr];
         else
