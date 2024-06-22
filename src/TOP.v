@@ -1,6 +1,6 @@
 `include "define.h"
 
-module GPP_TOP(Clk, Done, Rst, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
+module GPP_TOP(Clk, Done, Rst, Str, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
 
 // Common Interface
     input   Clk;
@@ -8,6 +8,7 @@ module GPP_TOP(Clk, Done, Rst, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
     // GPP_Core Interface
     output  Done;
     input   Rst;
+    input   Str;
 
     // Dual-port SRAM Interface
     input [(`SA_WIDTH-1):0] Addr2;
@@ -21,7 +22,7 @@ module GPP_TOP(Clk, Done, Rst, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
     wire [(`D_WIDTH-1):0] Data1_O;
     wire en1, we1;
 
-    GPP GPP_Core(Addr1, Data1_O, we1, en1, Done, Clk, Rst);
+    GPP GPP_Core(Addr1, Data1_O, we1, en1, Done, Clk, Rst, Str);
     
     sram_coregen sram(
         Addr1,   //addra,

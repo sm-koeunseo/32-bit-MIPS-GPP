@@ -2,7 +2,7 @@
 
 module TestBench();
 
-    reg Clk, Rst, Rst_M;
+    reg Clk, Rst, Rst_M, Str;
     wire Done;
     
     reg [(`SA_WIDTH-1):0] Addr;
@@ -14,11 +14,7 @@ module TestBench();
     integer Index;
     parameter ClkPeriod = 20;
 
-    //GPP gpp(Addr, Data, RW, En, Done, Clk, Rst);
-    //Sram I_Cache(Di, Data, Addr, RW, En, Clk, Rst_m);
-
-    //                (Clk, Done, Rst, Addr2, Data_I, Data2_O, en2, we2, Rst_M);
-    GPP_TOP CompToTest(Clk, Done, Rst, Addr, Data_I, Data_O, En, RW, Rst_M);
+    GPP_TOP CompToTest(Clk, Done, Rst, Str, Addr, Data_I, Data_O, En, RW, Rst_M);
 
     // Clock Procedure
     always begin
@@ -29,8 +25,7 @@ module TestBench();
     initial $readmemh("src/I-Cache.txt", regi);
 
     initial begin
-
-        Rst_M <= 1'b1; Rst <= 1'b0;
+        Rst_M <= 1'b1; Rst <= 1'b0; Str <= 1'b0;
         En <= 1'b0; RW <= 1'b0;
         @(posedge Clk);
      
@@ -38,8 +33,7 @@ module TestBench();
         @(posedge Clk);
 
         for (Index=0; Index<`SL_WIDTH; Index=Index+1) begin
-            // $display("%h", regi[Index]);
-            $display("Writing to SRAM: Addr=%d, Data=%h", Index, regi[Index]);
+            $display("Writing to SRAM: Addr=%2d, Data=%h", Index, regi[Index]);
             Addr <= Index;
             Data_I <= regi[Index];
             #5;
@@ -54,11 +48,15 @@ module TestBench();
         Rst <= 1'b1;
         @(posedge Clk);
 
-        // S_initail
-        Rst <= 1'b0;
+        // S_wait
+        Rst <= 1'b0; Str <= 1'b1;
         @(posedge Clk);
 
-        while (Done != 1'b1)    // 종료 flag
+        // S_initial
+        @(posedge Clk);
+
+        // when GPP is done
+        while (Done != 1'b1)
             @(posedge Clk);
 
         $stop;

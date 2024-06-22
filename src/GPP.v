@@ -1,32 +1,30 @@
 `include "define.h"
 
-module GPP (Addr, Data, RW, En, Done, Clk, Rst);
+module GPP (Addr, Data, RW, En, Done, Clk, Rst, Str);
 
+    input       Clk, Rst, Str;
+    integer     I;
+
+    // SRAM
     output reg  [(`SA_WIDTH-1):0]   Addr;
     input       [(`D_WIDTH-1):0]    Data;
     output reg  RW, En, Done;
-
-    input       Clk, Rst;
     
-    reg [(`RA_WIDTH-1):0] R1_Addr, R2_Addr, W_Addr;
-    wire [(`D_WIDTH-1):0] R1_Data, R2_Data;
-    reg [(`D_WIDTH-1):0] W_Data;
-    reg R1_en, R2_en, W_en, dis;
-    
-    RegFile register(R1_Addr, R2_Addr, W_Addr, R1_en, R2_en, W_en, R1_Data, R2_Data, W_Data, Clk, Rst, dis);
+    // register
+    reg [(`D_WIDTH-1):0] regi [0:25];
 
     parameter   S_wait      = 0,
                 S_initial   = 1,
-                S_fetch     = 2,
+                S_fetch1    = 2,
                 S_fetch2    = 3,
                 S_decode    = 4,
-                S_execute   = 5,
-                S_end       = 6;
+                S_execute1  = 5,
+                S_execute2  = 6,
+                S_end       = 7;
                 
-    reg [2:0] State, StateNext;
-    reg [(`D_WIDTH-1):0] IR;
-    integer PC;
-    // reg Co;
+    reg         [3:0] State, StateNext;
+    reg         [(`D_WIDTH-1):0] IR;
+    integer     PC;
 
     // im = rd+sh+fn
     wire [5:0] op;
@@ -38,194 +36,126 @@ module GPP (Addr, Data, RW, En, Done, Clk, Rst);
 
     Decoder decoder (IR, op, rs, rt, rd, sh, fn);
 
-    reg [2:0] op_code;
-    reg [(`D_WIDTH-1):0] operand1, operand2;
-    wire [(`D_WIDTH-1):0] result;
-    reg enable;
+    reg     [2:0] op_code;
+    reg     [(`D_WIDTH-1):0] operand1, operand2;
+    wire    [(`D_WIDTH-1):0] result;
+    reg     enable;
 
     ALU alu (op_code, operand1, operand2, result, enable);
 
     // StateReg
     always @(posedge Clk) begin
         if (Rst == 1)
-            State <= S_initial;
+            State <= S_wait;
         else
             State <= StateNext;
     end
 
     // ComLogic
     always @(State) begin        
-        Addr <= {`SA_WIDTH{1'b0}};
-        RW <= 1'b0;
-        En <= 1'b0;
-        
-        R1_Addr <= {`RA_WIDTH{1'b0}};
-        R2_Addr <= {`RA_WIDTH{1'b0}};
-        W_Addr <= {`RA_WIDTH{1'b0}};
-        R1_en <= 1'b0;
-        R2_en <= 1'b0;
-        W_en <= 1'b0;
-
-        op_code <= 3'b000;
-        operand1 <= {`D_WIDTH{1'b0}};
-        operand2 <= {`D_WIDTH{1'b0}};
-        enable <= 1'b0;
-
         case(State)
             S_wait: begin
-                StateNext <= S_wait;
+                if (Str)
+                    StateNext <= S_initial;
+                else
+                    StateNext <= S_wait;
             end
             S_initial: begin
                 Done <= 1'b0;
                 PC <= 0;
-                dis <= 0;
-                StateNext <= S_fetch;
+                regi[0] <= 0;
+                StateNext <= S_fetch1;
             end
-            S_fetch: begin
+            S_fetch1: begin
+                if (PC==`SL_WIDTH) 
+                    StateNext <= S_end;
+                else begin
+                    Addr <= {`SA_WIDTH{1'b0}};
+                    RW <= 1'b0;
+                    En <= 1'b0;
 
-                if (!(PC==`SL_WIDTH)) begin
+                    op_code <= 3'b000;
+                    operand1 <= {`D_WIDTH{1'b0}};
+                    operand2 <= {`D_WIDTH{1'b0}};
+                    enable <= 1'b0;
+
                     Addr <= PC;
                     RW <= 1'b0;
                     En <= 1'b1;
                     PC <= PC+1;
+
                     StateNext <= S_fetch2;
-                end else
-                    StateNext <= S_end;
+                end
             end
             S_fetch2: begin
                 StateNext <= S_decode;
             end
-            S_decode: begin // get value from regi
-                $display("Data : %h", Data);
+            S_decode: begin
                 IR <= Data;
-                StateNext <= S_execute;
+                StateNext <= S_execute1;
             end
-            S_execute: begin
+            S_execute1: begin
                 case(op)
                     0: begin
                 case(fn)
-                    0: begin  // regi[rd] <= regi[rt] << sh;
-                        R1_Addr <= rt;
-                        R1_en <= 1'b1;
-                        #5;
-
+                    0: begin    // sll
                         op_code <= 3'b100;
-                        operand1 <= R1_Data;
+                        operand1 <= regi[rt];
                         operand2 <= sh;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
                     end
-                    2: begin // regi[rd] <= regi[rt] >> sh;
-                        R1_Addr <= rt;
-                        R1_en <= 1'b1;
-                        #5;
-
+                    2: begin    // srl
                         op_code <= 3'b101;
-                        operand1 <= R1_Data;
+                        operand1 <= regi[rt];
                         operand2 <= sh;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
                     end
-                    24: begin // regi[rd] <= regi[rs] * regi[rt];
-                        R1_Addr <= rs;
-                        R1_en <= 1'b1;
-                        R2_Addr <= rt;
-                        R2_en <= 1'b1;
-                        #5;
-
+                    24: begin   // mult
                         op_code <= 3'b010;
-                        operand1 <= R1_Data;
-                        operand2 <= R2_Data;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
+                        operand1 <= regi[rs];
+                        operand2 <= regi[rt];
                     end
-                    26: begin // regi[rd] <= regi[rs] / regi[rt];
-                        R1_Addr <= rs;
-                        R1_en <= 1'b1;
-                        R2_Addr <= rt;
-                        R2_en <= 1'b1;
-                        #5;
-
+                    26: begin   // div
                         op_code <= 3'b011;
-                        operand1 <= R1_Data;
-                        operand2 <= R2_Data;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
+                        operand1 <= regi[rs];
+                        operand2 <= regi[rt];
                     end
-                    32: begin // {Co, regi[rd]} <= regi[rs] + regi[rt];
-                        R1_Addr <= rs;
-                        R1_en <= 1'b1;
-                        R2_Addr <= rt;
-                        R2_en <= 1'b1;
-                        #5;
-
+                    32: begin   // add
                         op_code <= 3'b000;
-                        operand1 <= R1_Data;
-                        operand2 <= R2_Data;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
+                        operand1 <= regi[rs];
+                        operand2 <= regi[rt];
                     end
-                    34: begin // {Co, regi[rd]} <= regi[rs] - regi[rt];
-                        R1_Addr <= rs;
-                        R1_en <= 1'b1;
-                        R2_Addr <= rt;
-                        R2_en <= 1'b1;
-                        #5;
-
+                    34: begin   // sub
                         op_code <= 3'b001;
-                        operand1 <= R1_Data;
-                        operand2 <= R2_Data;
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rd;
-                        W_Data <= result;
-                        W_en <= 1'b1;
+                        operand1 <= regi[rs];
+                        operand2 <= regi[rt];
                     end
                 endcase
                     end
-                    8: begin
-                        // regi[rt] <= regi[rs] + {rd,sh,fn};
-                        R1_Addr <= rs;
-                        R1_en <= 1'b1;
-                        #5;
-
+                    8: begin    // addi
                         op_code <= 3'b000;
-                        operand1 <= R1_Data;
+                        operand1 <= regi[rs];
                         operand2 <= {rd,sh,fn};
-                        enable <= 1'b1;
-                        #5;
-
-                        W_Addr <= rt;
-                        W_Data <= result;
-                        W_en <= 1'b1;
                     end
                 endcase
-                StateNext <= S_fetch;
+
+                enable <= 1'b1;
+                StateNext <= S_execute2;
+            end
+            S_execute2: begin
+                case(op)
+                    0: regi[rd] <= result;
+                    8: regi[rt] <= result;
+                endcase
+
+                StateNext <= S_fetch1;
             end
             S_end : begin
+                $write("regi : ");
+                for (I=0; I<25; I=I+1) begin
+                    $write("%2d, ", regi[I]);
+                end
+                $display("%2d", regi[25]);
+
                 Done <= 1;
-                dis <= 1;
                 StateNext <= S_wait;
             end
         endcase
