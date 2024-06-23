@@ -36,7 +36,6 @@ module TestBench();
             $display("Writing to SRAM: Addr=%2d, Data=%h", Index, regi[Index]);
             Addr <= Index;
             Data_I <= regi[Index];
-            #5;
             RW <= 1'b1;
             En <= 1'b1;
             @(posedge Clk);
@@ -53,6 +52,7 @@ module TestBench();
         @(posedge Clk);
 
         // S_initial
+        Str <= 1'b0;
         @(posedge Clk);
 
         // when GPP is done
