@@ -7,15 +7,12 @@ int main(void){
 
     // 결과 레지스터 파일
     FILE *fp;
-
     int i, length=sizeof(IC)/sizeof(IC[0]);
 
-    uint32_t regi[31] = {0,};
-
+    uint32_t regi[32] = {0,};
     uint32_t op, rs, rt, rd, sh, fn, im;
 
     fp = fopen("sw/sw_result.txt", "w");
-
 	if(fp==NULL){
 		printf("error occurs when opening sw_result.txt!\n", i);
 		exit(1);
@@ -43,7 +40,6 @@ int main(void){
             fn = IC[i] & 0x3F;
 
             switch (fn){
-
             case 0: //0x00 shifh left
                 // shamt 추출
                 sh = (IC[i] & 0x7C0) >> 6; // 0000 0000 0000 0000 0000 0111 1100 0000
@@ -76,7 +72,6 @@ int main(void){
                 regi[rd] = regi[rs] - regi[rt];
                 printf("Subract $(%d), $(%d), $(%d) : %d\n", rd, rs, rt, regi[rd]);
                 break;
-
             }
             break;
         
