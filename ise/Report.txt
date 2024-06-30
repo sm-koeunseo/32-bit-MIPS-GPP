@@ -1,0 +1,1619 @@
+Release 8.2i - xst I.31
+Copyright (c) 1995-2006 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to ./xst/projnav.tmp
+CPU : 0.00 / 0.06 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Parameter xsthdpdir set to ./xst
+CPU : 0.00 / 0.06 s | Elapsed : 0.00 / 0.00 s
+ 
+--> Reading design: GPP_TOP.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+     9.1) Device utilization summary
+     9.2) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "GPP_TOP.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "GPP_TOP"
+Output Format                      : NGC
+Target Device                      : xc2v8000-5-ff1152
+
+---- Source Options
+Top Module Name                    : GPP_TOP
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+FSM Style                          : lut
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : YES
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : YES
+Resource Sharing                   : YES
+Multiplier Style                   : auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 16
+Register Duplication               : YES
+Slice Packing                      : YES
+Pack IO Registers into IOBs        : auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : NO
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Write Timing Constraints           : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : maintain
+Slice Utilization Ratio            : 100
+Slice Utilization Ratio Delta      : 5
+
+---- Other Options
+lso                                : GPP_TOP.lso
+Read Cores                         : YES
+cross_clock_analysis               : NO
+verilog2001                        : YES
+safe_implementation                : No
+Optimize Instantiated Primitives   : NO
+tristate2logic                     : Yes
+use_clock_enable                   : Yes
+use_sync_set                       : Yes
+use_sync_reset                     : Yes
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling verilog file "../src/Decoder.v" in library work
+Compiling verilog file "../src/ALU.v" in library work
+Compiling verilog include file "../src/define.h"
+Module <Decoder> compiled
+Compiling verilog file "../src/GPP.v" in library work
+Compiling verilog include file "../src/define.h"
+Module <ALU> compiled
+Compiling verilog file "sram_coregen.v" in library work
+Module <GPP> compiled
+Compiling verilog file "../src/TOP.v" in library work
+Compiling verilog include file "../src/define.h"
+Module <sram_coregen> compiled
+Module <GPP_TOP> compiled
+No errors in compilation
+Analysis of file <"GPP_TOP.prj"> succeeded.
+ 
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for module <GPP_TOP> in library <work>.
+
+Analyzing hierarchy for module <GPP> in library <work> with parameters.
+	S_decode = "00000000000000000000000000000100"
+	S_end = "00000000000000000000000000000111"
+	S_execute1 = "00000000000000000000000000000101"
+	S_execute2 = "00000000000000000000000000000110"
+	S_fetch1 = "00000000000000000000000000000010"
+	S_fetch2 = "00000000000000000000000000000011"
+	S_initial = "00000000000000000000000000000001"
+	S_wait = "00000000000000000000000000000000"
+
+Analyzing hierarchy for module <Decoder> in library <work>.
+
+Analyzing hierarchy for module <ALU> in library <work>.
+
+Building hierarchy successfully finished.
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing top module <GPP_TOP>.
+WARNING:Xst:2211 - "sram_coregen.v" line 27: Instantiating black box module <sram_coregen>.
+Module <GPP_TOP> is correct for synthesis.
+ 
+Analyzing module <GPP> in library <work>.
+	S_wait = 32'sb00000000000000000000000000000000
+	S_initial = 32'sb00000000000000000000000000000001
+	S_fetch1 = 32'sb00000000000000000000000000000010
+	S_fetch2 = 32'sb00000000000000000000000000000011
+	S_decode = 32'sb00000000000000000000000000000100
+	S_execute1 = 32'sb00000000000000000000000000000101
+	S_execute2 = 32'sb00000000000000000000000000000110
+	S_end = 32'sb00000000000000000000000000000111
+"../src/GPP.v" line 152: $write : regi : 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 154: Unsupported escape sequence : %2.
+"../src/GPP.v" line 154: $write : %2d, 
+WARNING:Xst:2325 - "../src/GPP.v" line 156: Unsupported escape sequence : %2.
+"../src/GPP.v" line 156: $display : %2d
+WARNING:Xst:905 - "../src/GPP.v" line 55: The signals <Str, PC, Data, op, fn, regi, rt, sh, rs, rd, result> are missing in the sensitivity list of always block.
+Module <GPP> is correct for synthesis.
+ 
+Analyzing module <Decoder> in library <work>.
+Module <Decoder> is correct for synthesis.
+ 
+Analyzing module <ALU> in library <work>.
+Module <ALU> is correct for synthesis.
+ 
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+INFO:Xst:1304 - Contents of register <I> in unit <GPP> never changes during circuit operation. The register is replaced by logic.
+INFO:Xst:1304 - Contents of register <RW> in unit <GPP> never changes during circuit operation. The register is replaced by logic.
+INFO:Xst:1304 - Contents of register <En> in unit <GPP> never changes during circuit operation. The register is replaced by logic.
+
+Synthesizing Unit <Decoder>.
+    Related source file is "../src/Decoder.v".
+Unit <Decoder> synthesized.
+
+
+Synthesizing Unit <ALU>.
+    Related source file is "../src/ALU.v".
+WARNING:Xst:737 - Found 32-bit latch for signal <result>.
+WARNING:Xst:643 - "../src/ALU.v" line 15: The result of a 32x32-bit multiplication is partially used. Only the 32 least significant bits are used. If you are doing this on purpose, you may safely ignore this warning. Otherwise, make sure you are not losing information, leading to unexpected circuit behavior.
+    Found 32-bit addsub for signal <$addsub0000>.
+    Found 32x32-bit multiplier for signal <$mult0002> created at line 15.
+    Found 32-bit 4-to-1 multiplexer for signal <$mux0002>.
+    Found 32-bit shifter logical left for signal <$shift0002> created at line 22.
+    Found 32-bit shifter logical right for signal <$shift0003> created at line 23.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Multiplier(s).
+	inferred  32 Multiplexer(s).
+	inferred   2 Combinational logic shifter(s).
+Unit <ALU> synthesized.
+
+
+Synthesizing Unit <GPP>.
+    Related source file is "../src/GPP.v".
+WARNING:Xst:1872 - Variable <I> is used but never assigned.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_1>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_2>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_3>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_4>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_5>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_6>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_7>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_8>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_9>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_10>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_11>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_12>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_13>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_14>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_15>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_16>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_17>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_18>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_19>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_20>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_21>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_22>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_23>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_24>.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_25>.
+WARNING:Xst:737 - Found 4-bit latch for signal <Addr>.
+WARNING:Xst:737 - Found 32-bit latch for signal <IR>.
+    Using one-hot encoding for signal <State>.
+INFO:Xst:2117 - HDL ADVISOR - Mux Selector <State> of Case statement line 56 was re-encoded using one-hot encoding. The case statement will be optimized (default statement optimization), but this optimization may lead to design initialization problems. To ensure the design works safely, you can:
+   	- add an 'INIT' attribute on signal <State> (optimization is then done without any risk)
+   	- use the attribute 'signal_encoding user' to avoid onehot optimization
+   	- use the attribute 'safe_implementation yes' to force XST to perform a safe (but less efficient) optimization
+WARNING:Xst:737 - Found 1-bit latch for signal <Done>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 32-bit latch for signal <PC>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 32-bit latch for signal <regi_0>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 3-bit latch for signal <op_code>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 32-bit latch for signal <operand1>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 32-bit latch for signal <operand2>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <enable>.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+    Found 32-bit adder for signal <$addsub0000> created at line 85.
+    Found 32-bit 26-to-1 multiplexer for signal <$COND_1>.
+    Found 32-bit 26-to-1 multiplexer for signal <$COND_2>.
+    Found 8-bit register for signal <State>.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred  64 Multiplexer(s).
+Unit <GPP> synthesized.
+
+
+Synthesizing Unit <GPP_TOP>.
+    Related source file is "../src/TOP.v".
+Unit <GPP_TOP> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Multipliers                                          : 1
+ 32x32-bit multiplier                                  : 1
+# Adders/Subtractors                                   : 2
+ 32-bit adder                                          : 1
+ 32-bit addsub                                         : 1
+# Registers                                            : 1
+ 8-bit register                                        : 1
+# Latches                                              : 35
+ 1-bit latch                                           : 2
+ 3-bit latch                                           : 1
+ 32-bit latch                                          : 31
+ 4-bit latch                                           : 1
+# Multiplexers                                         : 3
+ 32-bit 26-to-1 multiplexer                            : 2
+ 32-bit 4-to-1 multiplexer                             : 1
+# Logic shifters                                       : 2
+ 32-bit shifter logical left                           : 1
+ 32-bit shifter logical right                          : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+Loading device for application Rf_Device from file '2v8000.nph' in environment C:\Xilinx.
+Executing edif2ngd -noa "sram_coregen.edn" "sram_coregen.ngo"
+Release 8.2i - edif2ngd I.31
+Copyright (c) 1995-2006 Xilinx, Inc.  All rights reserved.
+INFO:NgdBuild - Release 8.2i edif2ngd I.31
+INFO:NgdBuild - Copyright (c) 1995-2006 Xilinx, Inc.  All rights reserved.
+Writing module to "sram_coregen.ngo"...
+Loading core <sram_coregen> for timing and area information for instance <sram>.
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Multipliers                                          : 1
+ 32x32-bit multiplier                                  : 1
+# Adders/Subtractors                                   : 2
+ 32-bit adder                                          : 1
+ 32-bit addsub                                         : 1
+# Registers                                            : 8
+ Flip-Flops                                            : 8
+# Latches                                              : 35
+ 1-bit latch                                           : 2
+ 3-bit latch                                           : 1
+ 32-bit latch                                          : 31
+ 4-bit latch                                           : 1
+# Multiplexers                                         : 3
+ 32-bit 26-to-1 multiplexer                            : 2
+ 32-bit 4-to-1 multiplexer                             : 1
+# Logic shifters                                       : 2
+ 32-bit shifter logical left                           : 1
+ 32-bit shifter logical right                          : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+
+Optimizing unit <GPP_TOP> ...
+
+Optimizing unit <GPP> ...
+
+Optimizing unit <ALU> ...
+
+Mapping all equations...
+WARNING:Xst:1291 - FF/Latch <GPP_Core/enable> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/op_code_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/op_code_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/op_code_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand2_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/operand1_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_0_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/IR_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_25_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_24_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_23_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_22_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_21_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_20_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_19_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_18_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_17_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_16_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_15_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_14_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_13_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_12_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_11_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_10_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_9_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_8_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_7_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_6_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_5_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_4_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_3_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_2_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/regi_1_0> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_31> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_30> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_29> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_28> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_27> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_26> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_25> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_24> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_23> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_22> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_21> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_20> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_19> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_18> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_17> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_16> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_15> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_14> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_13> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_12> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_11> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_10> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_9> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_8> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_7> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_6> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_5> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_4> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_3> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_2> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_1> is unconnected in block <GPP_TOP>.
+WARNING:Xst:1291 - FF/Latch <GPP_Core/alu/result_0> is unconnected in block <GPP_TOP>.
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block GPP_TOP, actual ratio is 0.
+
+Final Macro Processing ...
+
+Processing Unit <GPP_TOP> :
+INFO:Xst:2387 - HDL ADVISOR - A 4-bit shift register was found for signal <GPP_Core/State_6> and currently occupies 4 logic cells (2 slices). Removing the set/reset logic would take advantage of SRL16 (and derived) primitives and reduce this to 1 logic cells (1 slices). Evaluate if the set/reset can be removed for this simple shift register. The majority of simple pipeline structures do not need to be set/reset operationally.
+Unit <GPP_TOP> processed.
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 8
+ Flip-Flops                                            : 8
+
+=========================================================================
+
+=========================================================================
+*                          Partition Report                             *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : GPP_TOP.ngr
+Top Level Output File Name         : GPP_TOP
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : NO
+
+Design Statistics
+# IOs                              : 75
+
+Cell Usage :
+# BELS                             : 152
+#      GND                         : 2
+#      INV                         : 2
+#      LUT1                        : 31
+#      LUT2                        : 4
+#      LUT3                        : 34
+#      LUT4                        : 8
+#      MUXCY                       : 39
+#      VCC                         : 1
+#      XORCY                       : 31
+# FlipFlops/Latches                : 45
+#      FDR                         : 6
+#      FDRS                        : 1
+#      FDS                         : 1
+#      LD                          : 33
+#      LDE                         : 4
+# RAMS                             : 1
+#      RAMB16_S36_S36              : 1
+# Clock Buffers                    : 2
+#      BUFG                        : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 74
+#      IBUF                        : 41
+#      OBUF                        : 33
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : 2v8000ff1152-5 
+
+ Number of Slices:                      45  out of  46592     0%  
+ Number of Slice Flip Flops:            44  out of  93184     0%  
+ Number of 4 input LUTs:                79  out of  93184     0%  
+ Number of IOs:                         75
+ Number of bonded IOBs:                 75  out of    824     9%  
+    IOB Flip Flops:                      1
+ Number of BRAMs:                        1  out of    168     0%  
+ Number of GCLKs:                        2  out of     16    12%  
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+----------------------------------------+------------------------+-------+
+Clock Signal                            | Clock buffer(FF name)  | Load  |
+----------------------------------------+------------------------+-------+
+Clk                                     | BUFGP                  | 9     |
+GPP_Core/_or0000(GPP_Core/_or00001:O)   | NONE(*)(GPP_Core/Done) | 1     |
+GPP_Core/State_2                        | NONE(GPP_Core/Addr_1)  | 4     |
+GPP_Core/_not00071(GPP_Core/_not00071:O)| BUFG(*)(GPP_Core/PC_10)| 32    |
+----------------------------------------+------------------------+-------+
+(*) These 2 clock signal(s) are generated by combinatorial logic,
+and XST is not able to identify which are the primary clock signals.
+Please use the CLOCK_SIGNAL constraint to specify the clock signal(s) generated by combinatorial logic.
+INFO:Xst:2169 - HDL ADVISOR - Some clock signals were not automatically buffered by XST with BUFG/BUFR resources. Please use the buffer_type constraint in order to insert these buffers to the clock signals to help prevent skew problems.
+
+Asynchronous Control Signals Information:
+----------------------------------------
+No asynchronous control signals found in this design
+
+Timing Summary:
+---------------
+Speed Grade: -5
+
+   Minimum period: 5.730ns (Maximum Frequency: 174.520MHz)
+   Minimum input arrival time before clock: 2.213ns
+   Maximum output required time after clock: 6.648ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'Clk'
+  Clock period: 2.408ns (frequency: 415.362MHz)
+  Total number of paths / destination ports: 10 / 9
+-------------------------------------------------------------------------
+Delay:               2.408ns (Levels of Logic = 1)
+  Source:            GPP_Core/State_2 (FF)
+  Destination:       GPP_Core/State_3 (FF)
+  Source Clock:      Clk rising
+  Destination Clock: Clk rising
+
+  Data Path: GPP_Core/State_2 to GPP_Core/State_3
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDRS:C->Q            39   0.494   1.210  GPP_Core/State_2 (GPP_Core/State_2)
+     LUT2:I0->O            1   0.382   0.000  GPP_Core/_not000721 (GPP_Core/StateNext<3>)
+     FDR:D                     0.322          GPP_Core/State_3
+    ----------------------------------------
+    Total                      2.408ns (1.198ns logic, 1.210ns route)
+                                       (49.8% logic, 50.2% route)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'GPP_Core/_not00071'
+  Clock period: 5.730ns (frequency: 174.520MHz)
+  Total number of paths / destination ports: 1552 / 32
+-------------------------------------------------------------------------
+Delay:               5.730ns (Levels of Logic = 33)
+  Source:            GPP_Core/PC_1 (LATCH)
+  Destination:       GPP_Core/PC_31 (LATCH)
+  Source Clock:      GPP_Core/_not00071 falling
+  Destination Clock: GPP_Core/_not00071 falling
+
+  Data Path: GPP_Core/PC_1 to GPP_Core/PC_31
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LD:G->Q               3   0.586   0.878  GPP_Core/PC_1 (GPP_Core/PC_1)
+     LUT1:I0->O            1   0.382   0.000  GPP_Core/PC_1_rt (GPP_Core/PC_1_rt)
+     MUXCY:S->O            1   0.259   0.000  GPP_Core/Madd__addsub0000_cy<1> (GPP_Core/Madd__addsub0000_cy<1>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<2> (GPP_Core/Madd__addsub0000_cy<2>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<3> (GPP_Core/Madd__addsub0000_cy<3>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<4> (GPP_Core/Madd__addsub0000_cy<4>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<5> (GPP_Core/Madd__addsub0000_cy<5>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<6> (GPP_Core/Madd__addsub0000_cy<6>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<7> (GPP_Core/Madd__addsub0000_cy<7>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<8> (GPP_Core/Madd__addsub0000_cy<8>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<9> (GPP_Core/Madd__addsub0000_cy<9>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<10> (GPP_Core/Madd__addsub0000_cy<10>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<11> (GPP_Core/Madd__addsub0000_cy<11>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<12> (GPP_Core/Madd__addsub0000_cy<12>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<13> (GPP_Core/Madd__addsub0000_cy<13>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<14> (GPP_Core/Madd__addsub0000_cy<14>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<15> (GPP_Core/Madd__addsub0000_cy<15>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<16> (GPP_Core/Madd__addsub0000_cy<16>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<17> (GPP_Core/Madd__addsub0000_cy<17>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<18> (GPP_Core/Madd__addsub0000_cy<18>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<19> (GPP_Core/Madd__addsub0000_cy<19>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<20> (GPP_Core/Madd__addsub0000_cy<20>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<21> (GPP_Core/Madd__addsub0000_cy<21>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<22> (GPP_Core/Madd__addsub0000_cy<22>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<23> (GPP_Core/Madd__addsub0000_cy<23>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<24> (GPP_Core/Madd__addsub0000_cy<24>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<25> (GPP_Core/Madd__addsub0000_cy<25>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<26> (GPP_Core/Madd__addsub0000_cy<26>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<27> (GPP_Core/Madd__addsub0000_cy<27>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<28> (GPP_Core/Madd__addsub0000_cy<28>)
+     MUXCY:CI->O           1   0.046   0.000  GPP_Core/Madd__addsub0000_cy<29> (GPP_Core/Madd__addsub0000_cy<29>)
+     MUXCY:CI->O           0   0.046   0.000  GPP_Core/Madd__addsub0000_cy<30> (GPP_Core/Madd__addsub0000_cy<30>)
+     XORCY:CI->O           1   1.107   0.480  GPP_Core/Madd__addsub0000_xor<31> (GPP_Core/_addsub0000<31>)
+     LUT3:I2->O            1   0.382   0.000  GPP_Core/_mux0026<31>1 (GPP_Core/_mux0026<31>)
+     LD:D                      0.322          GPP_Core/PC_31
+    ----------------------------------------
+    Total                      5.730ns (4.372ns logic, 1.358ns route)
+                                       (76.3% logic, 23.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET IN BEFORE for Clock 'Clk'
+  Total number of paths / destination ports: 77 / 77
+-------------------------------------------------------------------------
+Offset:              2.213ns (Levels of Logic = 2)
+  Source:            Str (PAD)
+  Destination:       GPP_Core/State_0 (FF)
+  Destination Clock: Clk rising
+
+  Data Path: Str to GPP_Core/State_0
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     IBUF:I->O             2   0.718   0.791  Str_IBUF (Str_IBUF)
+     LUT3:I1->O            1   0.382   0.000  GPP_Core/StateNext<0>1 (GPP_Core/StateNext<0>)
+     FDS:D                     0.322          GPP_Core/State_0
+    ----------------------------------------
+    Total                      2.213ns (1.422ns logic, 0.791ns route)
+                                       (64.3% logic, 35.7% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'GPP_Core/_or0000'
+  Total number of paths / destination ports: 1 / 1
+-------------------------------------------------------------------------
+Offset:              4.932ns (Levels of Logic = 1)
+  Source:            GPP_Core/Done (LATCH)
+  Destination:       Done (PAD)
+  Source Clock:      GPP_Core/_or0000 falling
+
+  Data Path: GPP_Core/Done to Done
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     LD:G->Q               1   0.586   0.450  GPP_Core/Done (GPP_Core/Done)
+     OBUF:I->O                 3.896          Done_OBUF (Done)
+    ----------------------------------------
+    Total                      4.932ns (4.482ns logic, 0.450ns route)
+                                       (90.9% logic, 9.1% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'Clk'
+  Total number of paths / destination ports: 32 / 32
+-------------------------------------------------------------------------
+Offset:              6.648ns (Levels of Logic = 2)
+  Source:            sram/B6 (RAM)
+  Destination:       Data2_O<31> (PAD)
+  Source Clock:      Clk rising
+
+  Data Path: sram/B6 to Data2_O<31>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     RAMB16_S36_S36:CLKB->DOB31    1   2.302   0.450  B6 (doutb<31>)
+     end scope: 'sram'
+     OBUF:I->O                 3.896          Data2_O_31_OBUF (Data2_O<31>)
+    ----------------------------------------
+    Total                      6.648ns (6.198ns logic, 0.450ns route)
+                                       (93.2% logic, 6.8% route)
+
+=========================================================================
+CPU : 22.87 / 22.94 s | Elapsed : 23.00 / 23.00 s
+ 
+--> 
+
+Total memory usage is 301056 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings : 1029 (   0 filtered)
+Number of infos    :   14 (   0 filtered)
+
